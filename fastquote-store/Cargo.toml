@@ -1,0 +1,12 @@
+[package]
+name = "fastquote-store"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+fastquote-core = { path = "../fastquote-core" }
+tokio = { workspace = true }
+redis = { workspace = true }
+serde_json = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }

@@ -1,0 +1,20 @@
+[tdx]
+host = "119.147.212.81"
+port = 7709
+reconnect_ms = 3000
+heartbeat_s = 60
+
+[tencent]
+poll_interval_ms = 3000
+kline_sync_interval_s = 60
+financial_sync_interval_s = 3600
+
+[store]
+redis_url = "redis://127.0.0.1:6379"
+mysql_url = "mysql://root@127.0.0.1/fastquote"
+
+[tcp]
+addr = "0.0.0.0:9000"
+
+[ws]
+addr = "0.0.0.0:9001"

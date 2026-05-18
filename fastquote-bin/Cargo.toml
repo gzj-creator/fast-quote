@@ -1,0 +1,22 @@
+[package]
+name = "fastquote-bin"
+version = "0.1.0"
+edition = "2021"
+
+[[bin]]
+name = "fastquote"
+path = "src/main.rs"
+
+[dependencies]
+fastquote-core = { path = "../fastquote-core" }
+fastquote-hub = { path = "../fastquote-hub" }
+fastquote-tdx = { path = "../fastquote-tdx" }
+fastquote-tencent = { path = "../fastquote-tencent" }
+fastquote-server = { path = "../fastquote-server" }
+fastquote-store = { path = "../fastquote-store" }
+tokio = { workspace = true }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+toml = { workspace = true }
+serde = { workspace = true }
+anyhow = { workspace = true }

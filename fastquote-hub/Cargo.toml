@@ -1,0 +1,10 @@
+[package]
+name = "fastquote-hub"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+fastquote-core = { path = "../fastquote-core" }
+tokio = { workspace = true, features = ["sync"] }
+dashmap = { workspace = true }
+tracing = { workspace = true }

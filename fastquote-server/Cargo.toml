@@ -1,0 +1,18 @@
+[package]
+name = "fastquote-server"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+fastquote-core = { path = "../fastquote-core" }
+fastquote-hub = { path = "../fastquote-hub" }
+tokio = { workspace = true }
+axum = { workspace = true }
+tokio-tungstenite = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+bytes = { workspace = true }
+tracing = { workspace = true }
+anyhow = { workspace = true }
+dashmap = { workspace = true }
+futures = { workspace = true }
