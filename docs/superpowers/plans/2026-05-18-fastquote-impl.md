@@ -1682,7 +1682,7 @@ git commit -m "feat: TCP binary + WebSocket downstream servers"
 - Create: `fastquote-store/src/redis_store.rs`
 - Create: `fastquote-store/src/persister.rs`
 
-- [ ] **Step 1: Update fastquote-store/Cargo.toml**
+- [x] **Step 1: Update fastquote-store/Cargo.toml**
 
 ```toml
 [package]
@@ -1699,7 +1699,7 @@ tracing = { workspace = true }
 anyhow = { workspace = true }
 ```
 
-- [ ] **Step 2: Create fastquote-store/src/redis_store.rs**
+- [x] **Step 2: Create fastquote-store/src/redis_store.rs**
 
 ```rust
 use anyhow::Result;
@@ -1762,7 +1762,7 @@ impl RedisStore {
 }
 ```
 
-- [ ] **Step 3: Create fastquote-store/src/persister.rs**
+- [x] **Step 3: Create fastquote-store/src/persister.rs**
 
 ```rust
 use crate::redis_store::RedisStore;
@@ -1835,7 +1835,7 @@ impl Persister {
 }
 ```
 
-- [ ] **Step 4: Update fastquote-store/src/lib.rs**
+- [x] **Step 4: Update fastquote-store/src/lib.rs**
 
 ```rust
 pub mod persister;
@@ -1845,12 +1845,12 @@ pub use persister::Persister;
 pub use redis_store::RedisStore;
 ```
 
-- [ ] **Step 5: Verify compilation**
+- [x] **Step 5: Verify compilation**
 
 Run: `cargo check -p fastquote-store`
 Expected: compiles
 
-- [ ] **Step 6: Commit**
+- [x] **Step 6: Commit**
 
 ```bash
 git add -A
@@ -1866,7 +1866,7 @@ git commit -m "feat: Redis store + async persister"
 - Create: `fastquote-bin/src/main.rs`
 - Create: `fastquote-bin/src/config.rs`
 
-- [ ] **Step 1: Update fastquote-bin/Cargo.toml**
+- [x] **Step 1: Update fastquote-bin/Cargo.toml**
 
 ```toml
 [package]
@@ -1893,7 +1893,7 @@ serde = { workspace = true }
 anyhow = { workspace = true }
 ```
 
-- [ ] **Step 2: Create fastquote-bin/src/config.rs**
+- [x] **Step 2: Create fastquote-bin/src/config.rs**
 
 ```rust
 use serde::Deserialize;
@@ -1945,7 +1945,7 @@ pub fn load_config(path: &str) -> anyhow::Result<AppConfig> {
 }
 ```
 
-- [ ] **Step 3: Create fastquote-bin/src/main.rs**
+- [x] **Step 3: Create fastquote-bin/src/main.rs**
 
 ```rust
 mod config;
@@ -2039,12 +2039,12 @@ async fn main() -> anyhow::Result<()> {
 }
 ```
 
-- [ ] **Step 4: Verify full workspace compiles**
+- [x] **Step 4: Verify full workspace compiles**
 
 Run: `cargo check`
 Expected: compiles with no errors
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 git add -A
@@ -2058,7 +2058,7 @@ git commit -m "feat: main entry point with all components wired together"
 **Files:**
 - Create: `tests/smoke.rs` (at workspace root, or in fastquote-bin)
 
-- [ ] **Step 1: Create a basic smoke test**
+- [x] **Step 1: Create a basic smoke test**
 
 ```rust
 // tests/smoke.rs or fastquote-bin/tests/smoke.rs
@@ -2103,12 +2103,12 @@ async fn test_hub_broadcast() {
 }
 ```
 
-- [ ] **Step 2: Run the test**
+- [x] **Step 2: Run the test**
 
 Run: `cargo test`
 Expected: PASS
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 git add -A
