@@ -1969,7 +1969,7 @@ async fn main() -> anyhow::Result<()> {
 
     // 配置
     let config: AppConfig = config::load_config("config.toml")?;
-    tracing::info!("FastQuote starting...");
+    tracing::info!("fast-quote starting...");
 
     // Hub
     let hub = Arc::new(Hub::new(8192));

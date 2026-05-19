@@ -17,7 +17,7 @@ async fn main() -> anyhow::Result<()> {
         .init();
 
     let config: AppConfig = config::load_config("config.toml")?;
-    tracing::info!("FastQuote starting");
+    tracing::info!("fast-quote starting");
 
     let hub = Arc::new(Hub::new(8192));
     let (hub_tx, mut hub_rx) = mpsc::channel::<fastquote_core::HubMessage>(4096);
