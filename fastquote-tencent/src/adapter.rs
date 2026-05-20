@@ -65,7 +65,8 @@ impl TencentAdapter {
 
     pub async fn run(&self) -> Result<()> {
         self.stopped.store(false, Ordering::SeqCst);
-        let mut interval = tokio::time::interval(Duration::from_millis(self.config.poll_interval_ms));
+        let mut interval =
+            tokio::time::interval(Duration::from_millis(self.config.poll_interval_ms));
 
         while !self.stopped.load(Ordering::SeqCst) {
             interval.tick().await;
@@ -80,7 +81,14 @@ impl TencentAdapter {
                 .collect::<Vec<_>>();
 
             match self.client.get_quote(&queries).await {
-                Ok(text) => self.handle_quote_text(&text).await?,
+                Ok(text) => {
+                    tracing::info!(
+                        "Tencent fetched {} bytes for {} symbols",
+                        text.len(),
+                        queries.len()
+                    );
+                    self.handle_quote_text(&text).await?
+                }
                 Err(err) => error!("Tencent quote fetch error: {err}"),
             }
         }
@@ -101,7 +109,10 @@ impl Adapter for TencentAdapter {
         }
     }
 
-    fn subscribe(&self, symbols: &[Symbol]) -> impl std::future::Future<Output = Result<()>> + Send {
+    fn subscribe(
+        &self,
+        symbols: &[Symbol],
+    ) -> impl std::future::Future<Output = Result<()>> + Send {
         let symbols = symbols.to_vec();
         async move {
             self.set_symbols(symbols).await;

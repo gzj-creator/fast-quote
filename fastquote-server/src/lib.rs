@@ -1,3 +1,4 @@
+pub mod frontend;
 pub mod tcp;
 pub mod ws;
 

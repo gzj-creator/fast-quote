@@ -507,6 +507,7 @@ dependencies = [
  "dashmap",
  "fastquote-core",
  "fastquote-hub",
+ "fastquote-tencent",
  "futures",
  "serde",
  "serde_json",

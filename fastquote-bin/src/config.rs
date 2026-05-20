@@ -7,6 +7,8 @@ pub struct AppConfig {
     pub store: StoreSection,
     pub tcp: TcpSection,
     pub ws: WsSection,
+    #[serde(default)]
+    pub symbols: Vec<String>,
 }
 
 #[derive(Debug, Deserialize)]

@@ -1,3 +1,6 @@
+# 默认订阅的股票代码
+symbols = ["SH600000", "SH600519", "SZ000001", "SZ000858", "SH601318", "SZ000333", "SH600036", "SH600276"]
+
 [tdx]
 host = "119.147.212.81"
 port = 7709
@@ -11,7 +14,7 @@ financial_sync_interval_s = 3600
 
 [store]
 redis_url = "redis://127.0.0.1:6379"
-mysql_url = "mysql://root@127.0.0.1/fastquote"
+database_url = "sqlite://data/fastquote.db"
 
 [tcp]
 addr = "0.0.0.0:9000"

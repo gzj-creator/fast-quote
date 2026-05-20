@@ -12,5 +12,6 @@
 
 ### Changed
 
+- 新增 Web 行情首页和 WebSocket K 线历史请求能力，腾讯数据源支持分钟/日 K 线拉取与解析。
 - 使用 SeaORM 替换手写 SQLx 落库实现，新增通用 ORM 存储、实体定义和数据库 URL 配置兼容。
 - 同步启动日志和实现计划中的项目名为 `fast-quote`。

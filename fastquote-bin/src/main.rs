@@ -1,6 +1,7 @@
 mod config;
 
 use config::AppConfig;
+use fastquote_core::{Adapter, Symbol};
 use fastquote_hub::Hub;
 use fastquote_server::{run_ws_server, TcpQuoteServer};
 use fastquote_store::Persister;
@@ -10,13 +11,26 @@ use std::sync::Arc;
 use tokio::sync::mpsc;
 use tracing_subscriber::EnvFilter;
 
+fn parse_symbols(raw: &[String]) -> Vec<Symbol> {
+    raw.iter()
+        .filter_map(|s| {
+            let s = s.trim();
+            if s.len() < 4 {
+                return None;
+            }
+            let (market, code) = s.split_at(2);
+            Some(Symbol::new(market.to_uppercase(), code))
+        })
+        .collect()
+}
+
 #[tokio::main]
 async fn main() -> anyhow::Result<()> {
     tracing_subscriber::fmt()
         .with_env_filter(EnvFilter::from_default_env().add_directive("info".parse()?))
         .init();
 
-    let config: AppConfig = config::load_config("config.toml")?;
+    let config: AppConfig = config::load_config("config/config.toml")?;
     tracing::info!("fast-quote starting");
 
     let hub = Arc::new(Hub::new(8192));
@@ -47,6 +61,12 @@ async fn main() -> anyhow::Result<()> {
         },
         hub_tx,
     );
+
+    let symbols = parse_symbols(&config.symbols);
+    if !symbols.is_empty() {
+        tracing::info!("Subscribing {} symbols", symbols.len());
+        tencent_adapter.subscribe(&symbols).await?;
+    }
 
     let persister = Persister::new(&config.store.redis_url, config.store.database_url()).await;
     let hub_sub = hub.subscribe();

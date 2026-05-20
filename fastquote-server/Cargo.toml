@@ -6,6 +6,7 @@ edition = "2021"
 [dependencies]
 fastquote-core = { path = "../fastquote-core" }
 fastquote-hub = { path = "../fastquote-hub" }
+fastquote-tencent = { path = "../fastquote-tencent" }
 tokio = { workspace = true }
 axum = { workspace = true }
 tokio-tungstenite = { workspace = true }
