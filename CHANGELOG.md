@@ -12,4 +12,5 @@
 
 ### Changed
 
+- 使用 SeaORM 替换手写 SQLx 落库实现，新增通用 ORM 存储、实体定义和数据库 URL 配置兼容。
 - 同步启动日志和实现计划中的项目名为 `fast-quote`。

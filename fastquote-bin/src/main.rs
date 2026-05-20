@@ -48,8 +48,7 @@ async fn main() -> anyhow::Result<()> {
         hub_tx,
     );
 
-    let _mysql_url = &config.store.mysql_url;
-    let persister = Persister::new(&config.store.redis_url).await?;
+    let persister = Persister::new(&config.store.redis_url, config.store.database_url()).await;
     let hub_sub = hub.subscribe();
     let tcp_server = TcpQuoteServer::bind(&config.tcp.addr, hub.clone()).await?;
     let ws_addr = config.ws.addr.clone();
