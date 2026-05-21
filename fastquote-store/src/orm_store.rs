@@ -4,8 +4,8 @@ use fastquote_core::{DepthMarket, IndexQuote, Kline};
 use sea_orm::{
     sea_query::{Alias, OnConflict},
     ActiveValue::NotSet,
-    ConnectionTrait, Database, DatabaseConnection, EntityTrait, Iden, PaginatorTrait, Schema, Set,
-    StatementBuilder,
+    ConnectOptions, ConnectionTrait, Database, DatabaseConnection, EntityTrait, Iden,
+    PaginatorTrait, Schema, Set, StatementBuilder,
 };
 use std::path::Path;
 
@@ -18,7 +18,7 @@ pub type SqliteStore = OrmStore;
 impl OrmStore {
     pub async fn new(url: &str) -> Result<Self> {
         ensure_parent_dir(url)?;
-        let db = Database::connect(url).await?;
+        let db = Database::connect(connect_options(url)).await?;
         init_schema(&db).await?;
         Ok(Self { db })
     }
@@ -143,6 +143,14 @@ impl OrmStore {
             _ => anyhow::bail!("unsupported table {table}"),
         }
     }
+}
+
+fn connect_options(url: &str) -> ConnectOptions {
+    let mut options = ConnectOptions::new(url.to_owned());
+    if url.starts_with("sqlite:") {
+        options.map_sqlx_sqlite_opts(|options| options.create_if_missing(true));
+    }
+    options
 }
 
 fn ensure_parent_dir(url: &str) -> Result<()> {

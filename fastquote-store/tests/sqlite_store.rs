@@ -1,5 +1,6 @@
 use fastquote_core::{Amount, DepthMarket, IndexQuote, Kline, Level, Price, Symbol, Time, Volume};
 use fastquote_store::OrmStore;
+use std::{env, fs, process, time::SystemTime};
 
 fn depth() -> DepthMarket {
     DepthMarket {
@@ -75,4 +76,28 @@ async fn sqlite_store_upserts_duplicate_klines() {
     store.write_kline("Tencent", &kline).await.unwrap();
 
     assert_eq!(store.count_rows("kline").await.unwrap(), 1);
+}
+
+#[tokio::test]
+async fn sqlite_store_creates_missing_database_file() {
+    let unique = SystemTime::now()
+        .duration_since(SystemTime::UNIX_EPOCH)
+        .unwrap()
+        .as_nanos();
+    let base = env::temp_dir().join(format!(
+        "fastquote-store-sqlite-file-{}-{unique}",
+        process::id()
+    ));
+    let db_path = base.join("nested").join("fastquote.db");
+    let url = format!("sqlite://{}", db_path.display());
+
+    assert!(!db_path.exists());
+    assert!(!db_path.parent().unwrap().exists());
+
+    let store = OrmStore::new(&url).await.unwrap();
+
+    assert_eq!(store.count_rows("depth_tick").await.unwrap(), 0);
+    assert!(db_path.exists());
+
+    fs::remove_dir_all(base).unwrap();
 }
